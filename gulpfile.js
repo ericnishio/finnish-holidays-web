@@ -1,9 +1,12 @@
+require('dotenv').load();
+
 var gulp = require('gulp');
 var connect = require('gulp-connect');
 var modRewrite = require('connect-modrewrite');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var sass = require('gulp-sass');
+var awsS3 = require('gulp-aws-s3');
 
 gulp.task('default', ['build', 'connect']);
 
@@ -42,4 +45,14 @@ gulp.task('connect', function() {
       ];
     }
   });
+});
+
+gulp.task('deploy', function() {
+  gulp.src('./dist/**/*')
+    .pipe(awsS3.upload({path: ''}, {
+      key: process.env.S3_ACCESS_KEY,
+      secret: process.env.S3_SECRET,
+      region: 'eu-west-1',
+      bucket: 'finnishholidays'
+    }));
 });
