@@ -20,7 +20,7 @@ angular.module('holidays', [])
         return date;
       },
       getDateMedium: function(holiday) {
-        return moment(this.getDate(holiday)).format('MMM Do YY');
+        return moment(this.getDate(holiday)).format('MMM D');
       },
       getDaysUntil: function(holiday) {
         return moment(this.getDate(holiday)).startOf('hour').fromNow();
