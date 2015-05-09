@@ -5,20 +5,18 @@ var connect = require('gulp-connect');
 var modRewrite = require('connect-modrewrite');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
+var ngAnnotate = require('gulp-ng-annotate');
+var uglify = require('gulp-uglify');
+var minifyCss = require('gulp-minify-css');
 var sass = require('gulp-sass');
 var awsS3 = require('gulp-aws-s3');
 
-gulp.task('default', ['build', 'connect']);
+gulp.task('default', ['optimize', 'connect']);
 
 gulp.watch('./src/**/*', ['build']);
 
-gulp.task('build', function() {
+gulp.task('build', ['sass'], function() {
   gulp.src('./src/index.html').pipe(gulp.dest('./dist'));
-
-  gulp.src('./src/sass/app.scss')
-    .pipe(sass())
-    .pipe(gulp.dest('./dist'));
-
   gulp.src('./src/images/**/*').pipe(gulp.dest('./dist/images'));
 
   return browserify('./src/app.js')
@@ -28,10 +26,21 @@ gulp.task('build', function() {
 });
 
 gulp.task('sass', function(done) {
-  gulp.src('./src/app/app.scss')
+  gulp.src('./src/sass/app.scss')
     .pipe(sass())
-    .pipe(gulp.dest(paths.dist + '/css/'))
+    .pipe(gulp.dest('./dist'))
     .on('end', done);
+});
+
+gulp.task('optimize', ['build'], function() {
+  gulp.src('./dist/app.js')
+    .pipe(ngAnnotate({single_quotes: true}))
+    .pipe(uglify({mangle: true}))
+    .pipe(gulp.dest('./dist'));
+
+  gulp.src('./dist/app.css')
+    .pipe(minifyCss())
+    .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('connect', function() {
@@ -47,7 +56,7 @@ gulp.task('connect', function() {
   });
 });
 
-gulp.task('deploy', function() {
+gulp.task('deploy', ['optimize'], function() {
   gulp.src('./dist/**/*')
     .pipe(awsS3.upload({path: ''}, {
       key: process.env.S3_ACCESS_KEY,
