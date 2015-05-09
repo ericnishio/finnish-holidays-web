@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" ><![endif]-->
+<html class="no-js" ng-app="holidays" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Finnish Holidays</title>
+  <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <script src="app.js"></script>
+  <base href="/">
+</head>
+<body ng-controller="AppCtrl" class="page">
+  <section class="section">
+    <div class="section__column section__column--background" style="background-image: url(/images/spring.jpg)">
+      <div class="box">
+        <div class="box__row">
+          <small class="text-small">{{ nextHolidayUntil }}</small>
+          <small class="text-small text-small--secondary">{{ nextHolidayDate }}</small>
+        </div>
+        <div class="box__row">
+          <h1 class="heading">{{ nextHoliday.description }}</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
