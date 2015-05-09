@@ -13,7 +13,7 @@ gulp.task('default', ['build', 'connect']);
 gulp.watch('./src/**/*', ['build']);
 
 gulp.task('build', function() {
-  gulp.src('./src/**/*').pipe(gulp.dest('./dist'));
+  gulp.src('./src/index.html').pipe(gulp.dest('./dist'));
 
   gulp.src('./src/sass/app.scss')
     .pipe(sass())
@@ -53,6 +53,6 @@ gulp.task('deploy', function() {
       key: process.env.S3_ACCESS_KEY,
       secret: process.env.S3_SECRET,
       region: 'eu-west-1',
-      bucket: 'finnishholidays'
+      bucket: 'finnishholidays.com'
     }));
 });
