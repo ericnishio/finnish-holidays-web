@@ -9,7 +9,7 @@ var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
 var sass = require('gulp-sass');
-var awsS3 = require('gulp-aws-s3');
+var s3 = require('gulp-s3');
 
 gulp.task('default', ['optimize', 'connect']);
 
@@ -56,12 +56,17 @@ gulp.task('connect', function() {
   });
 });
 
-gulp.task('deploy', ['optimize'], function() {
-  gulp.src('./dist/**/*')
-    .pipe(awsS3.upload({path: ''}, {
+gulp.task('deploy', function() {
+  return gulp.src('./dist/**/*')
+    .pipe(s3({
       key: process.env.S3_ACCESS_KEY,
       secret: process.env.S3_SECRET,
       region: 'eu-west-1',
       bucket: 'finnishholidays.com'
+    }, {
+      uploadPath: '/',
+      headers: {
+        'x-amz-acl': 'public-read'
+      }
     }));
 });
