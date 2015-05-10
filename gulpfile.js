@@ -79,12 +79,7 @@ gulp.task('connect', function() {
 
 gulp.task('deploy', ['optimize'], function() {
   return gulp.src(['./dist/**/*', '!./dist/**/*.jpg'])
-    .pipe(s3({
-      key: process.env.S3_ACCESS_KEY,
-      secret: process.env.S3_SECRET,
-      region: 'eu-west-1',
-      bucket: 'finnishholidays.com'
-    }, {
+    .pipe(s3(s3Config(), {
       uploadPath: '/',
       headers: {
         'x-amz-acl': 'public-read'
@@ -92,17 +87,21 @@ gulp.task('deploy', ['optimize'], function() {
     }));
 });
 
-gulp.task('deploy:images', ['optimize'], function() {
-  return gulp.src('./dist/**/*.jpg')
-    .pipe(s3({
-      key: process.env.S3_ACCESS_KEY,
-      secret: process.env.S3_SECRET,
-      region: 'eu-west-1',
-      bucket: 'finnishholidays.com'
-    }, {
+gulp.task('deploy:all', ['optimize'], function() {
+  return gulp.src('./dist/**/*')
+    .pipe(s3(s3Config(), {
       uploadPath: '/',
       headers: {
         'x-amz-acl': 'public-read'
       }
     }));
 });
+
+function s3Config() {
+  return {
+    key: process.env.S3_ACCESS_KEY,
+    secret: process.env.S3_SECRET,
+    region: 'eu-west-1',
+    bucket: 'finnishholidays.com'
+  };
+}

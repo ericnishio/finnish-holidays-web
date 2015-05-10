@@ -24,3 +24,9 @@ $ gulp
 ```
 $ gulp deploy
 ```
+
+Deploy with images:
+
+```
+$ gulp deploy:all
+```
