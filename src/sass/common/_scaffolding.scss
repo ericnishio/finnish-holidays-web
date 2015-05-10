@@ -28,30 +28,12 @@
     margin-bottom: 20px;
   }
 
-  .text-small {
-    background-color: $yellow;
-    display: inline-block;
-    font-size: 26px;
-    font-weight: 300;
-    margin-right: 20px;
-    padding: 10px 20px;
-
-    &--secondary {
-      background-color: $red-light;
-      color: $pink-light;
-      font-weight: 100;
-    }
+  @media #{$medium-only} {
+    margin-top: 200px;
   }
-}
 
-.image-attribution {
-  background-color: #000;
-  font-size: 13px;
-  font-weight: 300;
-  color: #fff;
-  opacity: 0.7;
-  padding: 5px 10px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  @media #{$small-only} {
+    margin-top: 150px;
+    width: 100%;
+  }
 }
