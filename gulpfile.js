@@ -11,9 +11,11 @@ var minifyCss = require('gulp-minify-css');
 var sass = require('gulp-sass');
 var s3 = require('gulp-s3');
 
-gulp.task('default', ['optimize', 'connect']);
+gulp.task('default', ['optimize', 'connect', 'watch']);
 
-gulp.watch('./src/**/*', ['build']);
+gulp.task('watch', function() {
+  gulp.watch('./src/**/*', ['optimize']);
+});
 
 gulp.task('build', [
   'browserify',
@@ -76,7 +78,22 @@ gulp.task('connect', function() {
 });
 
 gulp.task('deploy', ['optimize'], function() {
-  return gulp.src('./dist/**/*')
+  return gulp.src(['./dist/**/*', '!./dist/**/*.jpg'])
+    .pipe(s3({
+      key: process.env.S3_ACCESS_KEY,
+      secret: process.env.S3_SECRET,
+      region: 'eu-west-1',
+      bucket: 'finnishholidays.com'
+    }, {
+      uploadPath: '/',
+      headers: {
+        'x-amz-acl': 'public-read'
+      }
+    }));
+});
+
+gulp.task('deploy:images', ['optimize'], function() {
+  return gulp.src('./dist/**/*.jpg')
     .pipe(s3({
       key: process.env.S3_ACCESS_KEY,
       secret: process.env.S3_SECRET,

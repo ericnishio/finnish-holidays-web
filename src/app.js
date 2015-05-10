@@ -58,9 +58,6 @@ angular.module('holidays', [])
           case 'Midsummer Eve':
             return this.createImage('/images/midsummer-eve.jpg', 'Michael Holler');
 
-          case 'Midsummer Eve (unofficial)':
-            return this.createImage('/images/midsummer-eve.jpg', 'Michael Holler');
-
           case 'Midsummer Day':
             return this.createImage('/images/midsummer-day.jpg', 'Heather Sunderland');
 
@@ -70,7 +67,7 @@ angular.module('holidays', [])
           case 'Independence Day':
             return this.createImage('/images/independence-day.jpg', 'Vestman');
 
-          case 'Christmas Eve (unofficial)':
+          case 'Christmas Eve':
             return this.createImage('/images/christmas-eve.jpg', 'frozenreindeer');
 
           case 'Christmas Day':
