@@ -29,12 +29,8 @@
 
   &--secondary {
     background-color: $red-light;
-    color: $pink-light;
-    font-weight: 100;
-
-    @media #{$small-only} {
-      color: #fff;
-    }
+    color: #fff;
+    font-weight: 300;
   }
 }
 
