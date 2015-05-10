@@ -35,3 +35,9 @@
     width: 100%;
   }
 }
+
+.hide-on-small {
+  @media #{$small-only} {
+    display: none;
+  }
+}

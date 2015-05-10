@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <meta name="description" content="The national holidays of Finland.">
+  <meta name="description" content="When is your next day off in Finland?">
   <title>Finnish Holidays</title>
   <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="app.css">
@@ -13,6 +13,16 @@
   <base href="/">
 </head>
 <body ng-controller="AppCtrl" class="page">
+  <div id="fb-root"></div>
+  <script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
   <section class="section">
     <div class="section__column section__column--background" style="background-image: url({{ nextHolidayImage.url }})">
       <div class="box">
@@ -27,7 +37,9 @@
     </div>
   </section>
   <div class="image-attribution">
+    <div class="fb-share-button" data-href="http://finnishholidays.com" data-layout="button"></div>
     Image courtesy of {{ nextHolidayImage.attribution }}
+    <span class="hide-on-small">&mdash; Powered by <a href="https://github.com/ericnishio/finnish-holidays-js" target="_blank">finnish-holidays-js</a></span>
   </div>
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
