@@ -19,6 +19,8 @@ Open and configure the `.env` file.
 $ gulp
 ```
 
+Launch your browser and navigate to: `http://localhost:1337`
+
 ## Deploy
 
 ```
