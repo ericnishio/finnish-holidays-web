@@ -78,7 +78,10 @@ gulp.task('connect', function() {
 });
 
 gulp.task('deploy', ['optimize'], function() {
-  return gulp.src(['./dist/**/*', '!./dist/**/*.jpg'])
+  return gulp.src([
+    './dist/**/*',
+    '!./dist/**/*.jpg' // exclude images
+  ])
     .pipe(s3(s3Config(), {
       uploadPath: '/',
       headers: {
