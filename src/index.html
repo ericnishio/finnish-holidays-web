@@ -13,7 +13,7 @@
 </head>
 <body ng-controller="AppCtrl" class="page">
   <section class="section">
-    <div class="section__column section__column--background" style="background-color: #180B2A">
+    <div class="section__column section__column--background" style="background-image: url({{ nextHolidayImage.url }})">
       <div class="box">
         <div class="box__row">
           <small class="text-small" ng-bind="nextHolidayUntil"></small>
@@ -25,5 +25,8 @@
       </div>
     </div>
   </section>
+  <div class="image-attribution">
+    Image courtesy of {{ nextHolidayImage.attribution }}
+  </div>
 </body>
 </html>
