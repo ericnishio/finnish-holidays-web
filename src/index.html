@@ -12,7 +12,7 @@
   <script src="app.js"></script>
   <base href="/">
 </head>
-<body ng-controller="AppCtrl" class="page">
+<body ng-controller="AppCtrl" class="page" keyboard>
   <div id="fb-root"></div>
   <script>
     window.fbAsyncInit = function() {
@@ -31,14 +31,14 @@
     }(document, 'script', 'facebook-jssdk'));
   </script>
   <section class="section">
-    <div class="section__column section__column--background" style="background-image: url({{ nextHolidayImage.url }})">
+    <div class="section__column section__column--background" style="background-image: url({{ getImage().url }})">
       <div class="box">
         <div class="box__row">
-          <small class="text-small text-small--secondary" ng-bind="nextHolidayDate"></small>
-          <small class="text-small" ng-bind="nextHolidayUntil"></small>
+          <small class="text-small text-small--secondary" ng-bind="getDate()"></small>
+          <small class="text-small" ng-bind="getUntil()"></small>
         </div>
         <div class="box__row">
-          <h1 class="heading" ng-bind="nextHoliday.description"></h1>
+          <h1 class="heading" ng-bind="getHoliday().description"></h1>
         </div>
       </div>
     </div>
@@ -48,6 +48,7 @@
     Image courtesy of {{ nextHolidayImage.attribution }}
     <span class="hide-on-small">&mdash; Powered by <a href="https://github.com/ericnishio/finnish-holidays-js" target="_blank">finnish-holidays-js</a></span>
   </div>
+  <!--
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -56,5 +57,6 @@
     ga('create', 'UA-2347685-10', 'auto');
     ga('send', 'pageview');
   </script>
+  -->
 </body>
 </html>

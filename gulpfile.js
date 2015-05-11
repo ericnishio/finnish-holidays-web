@@ -11,10 +11,10 @@ var minifyCss = require('gulp-minify-css');
 var sass = require('gulp-sass');
 var s3 = require('gulp-s3');
 
-gulp.task('default', ['optimize', 'connect', 'watch']);
+gulp.task('default', ['build', 'connect', 'watch']);
 
 gulp.task('watch', function() {
-  gulp.watch('./src/**/*', ['optimize']);
+  gulp.watch('./src/**/*', ['build']);
 });
 
 gulp.task('build', [

@@ -1,15 +1,77 @@
 var angular = require('angular');
-var holidays = require('finnish-holidays-js');
+var FinnishHolidays = require('finnish-holidays-js');
 var moment = require('moment');
+
+var KEY_LEFT = 37;
+var KEY_RIGHT = 39;
 
 angular.module('holidays', [])
   .controller('AppCtrl', function($scope, utils) {
-    $scope.holidays = holidays.next();
+    var currentDate = moment();
 
-    $scope.nextHoliday = $scope.holidays[0];
-    $scope.nextHolidayDate = utils.getDateMedium($scope.nextHoliday);
-    $scope.nextHolidayUntil = utils.getDaysUntil($scope.nextHoliday);
-    $scope.nextHolidayImage = utils.getImage($scope.nextHoliday);
+    gotoNext();
+
+    function gotoNext() {
+      var found = false;
+      var holidays = loadHolidays(currentDate);
+
+      angular.forEach(holidays, function(h) {
+        var hDate = moment([h.year, h.month - 1, h.day]);
+
+        if (!found && hDate >= currentDate) {
+          found = true;
+          $scope.currentHoliday = h;
+          currentDate = moment([h.year, h.month - 1, h.day]).add(1, 'days');
+        }
+      });
+
+      if (!found) {
+        currentDate = currentDate.add(1, 'month').startOf('month');
+        gotoNext();
+      }
+    }
+
+    function loadHolidays(date) {
+      var m = date.get('month') + 1;
+      var y = date.get('year');
+      return FinnishHolidays.month(m, y);
+    }
+
+    $scope.getHoliday = function() {
+      return $scope.currentHoliday;
+    };
+
+    $scope.getDate = function() {
+      return utils.getDateMedium($scope.currentHoliday);
+    };
+
+    $scope.getUntil = function() {
+      return utils.getDaysUntil($scope.currentHoliday);
+    };
+
+    $scope.getImage = function() {
+      return utils.getImage($scope.currentHoliday);
+    };
+
+    $scope.previous = function() {
+      //gotoPrevious();
+      //$scope.$apply();
+    };
+
+    $scope.next = function() {
+      gotoNext();
+      $scope.$apply();
+    };
+
+    $scope.$on('keyboard.pressed', function(event, key) {
+      if (key === KEY_LEFT) {
+        return $scope.previous();
+      }
+
+      if (key === KEY_RIGHT) {
+        return $scope.next();
+      }
+    });
   })
   .factory('utils', function() {
     return {
@@ -18,6 +80,9 @@ angular.module('holidays', [])
         date.setYear(year);
         date.setMonth(month - 1);
         date.setDate(day);
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
         return date;
       },
       getDate: function(holiday) {
@@ -85,6 +150,16 @@ angular.module('holidays', [])
           attribution: photographer,
           url: url
         };
+      }
+    };
+  })
+  .directive('keyboard', function($document, $rootScope) {
+    return {
+      restrict: 'A',
+      link: function() {
+        $document.bind('keydown', function(event) {
+          $rootScope.$broadcast('keyboard.pressed', event.which);
+        });
       }
     };
   });
