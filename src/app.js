@@ -31,6 +31,27 @@ angular.module('holidays', [])
       }
     }
 
+    function gotoPrevious() {
+      // TODO: Fix.
+      var found = false;
+      var holidays = loadHolidays(currentDate);
+
+      angular.forEach(holidays, function(h) {
+        var hDate = moment([h.year, h.month - 1, h.day]);
+
+        if (!found && hDate <= currentDate) {
+          found = true;
+          $scope.currentHoliday = h;
+          currentDate = moment([h.year, h.month - 1, h.day]).subtract(1, 'days');
+        }
+      });
+
+      if (!found) {
+        currentDate = currentDate.subtract(1, 'month').endOf('month');
+        gotoPrevious();
+      }
+    }
+
     function loadHolidays(date) {
       var m = date.get('month') + 1;
       var y = date.get('year');
@@ -54,8 +75,8 @@ angular.module('holidays', [])
     };
 
     $scope.previous = function() {
-      //gotoPrevious();
-      //$scope.$apply();
+      gotoPrevious();
+      $scope.$apply();
     };
 
     $scope.next = function() {
