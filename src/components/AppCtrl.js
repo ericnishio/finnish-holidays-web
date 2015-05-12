@@ -5,55 +5,70 @@ var FinnishHolidays = require('finnish-holidays-js');
 var KEY_LEFT = 37;
 var KEY_RIGHT = 39;
 
-app.controller('AppCtrl', function($scope, utils) {
+app.controller('AppCtrl', function($log, $scope, utils) {
   var currentDate = moment();
+  var currentIndex = -1;
 
-  gotoNext();
+  findInitial();
 
-  function gotoNext() {
+  function findInitial() {
     var found = false;
-    var holidays = loadHolidays(currentDate);
+    var holidays = getHolidays();
 
-    angular.forEach(holidays, function(h) {
+    angular.forEach(holidays, function(h, i) {
       var hDate = moment([h.year, h.month - 1, h.day]);
 
       if (!found && hDate >= currentDate) {
         found = true;
         $scope.currentHoliday = h;
         currentDate = moment([h.year, h.month - 1, h.day]).add(1, 'days');
+        currentIndex = i;
       }
     });
 
     if (!found) {
-      currentDate = currentDate.add(1, 'month').startOf('month');
+      nextMonth();
+      findInitial();
+    }
+  }
+
+  function gotoNext() {
+    var holidays = getHolidays();
+
+    if (holidays.length > 0 && currentIndex < holidays.length - 1) {
+      $scope.currentHoliday = holidays[currentIndex + 1];
+      currentIndex += 1;
+    } else {
+      nextMonth();
       gotoNext();
     }
   }
 
   function gotoPrevious() {
-    // TODO: Fix.
-    var found = false;
-    var holidays = loadHolidays(currentDate);
+    var holidays = getHolidays();
 
-    angular.forEach(holidays, function(h) {
-      var hDate = moment([h.year, h.month - 1, h.day]);
-
-      if (!found && hDate <= currentDate) {
-        found = true;
-        $scope.currentHoliday = h;
-        currentDate = moment([h.year, h.month - 1, h.day]).subtract(1, 'days');
-      }
-    });
-
-    if (!found) {
-      currentDate = currentDate.subtract(1, 'month').endOf('month');
+    if (holidays.length > 0 && currentIndex > 0) {
+      $scope.currentHoliday = holidays[currentIndex - 1];
+      currentIndex -= 1;
+    } else {
+      previousMonth();
       gotoPrevious();
     }
   }
 
-  function loadHolidays(date) {
-    var m = date.get('month') + 1;
-    var y = date.get('year');
+  function nextMonth() {
+    currentIndex = -1;
+    currentDate = currentDate.add(1, 'month').startOf('month');
+  }
+
+  function previousMonth() {
+    currentDate = currentDate.subtract(1, 'month').endOf('month');
+    currentIndex = getHolidays().length;
+  }
+
+  function getHolidays() {
+    var m = currentDate.get('month') + 1;
+    var y = currentDate.get('year');
     return FinnishHolidays.month(m, y);
   }
 
