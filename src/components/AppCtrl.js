@@ -44,7 +44,7 @@ app.controller('AppCtrl', function($timeout, $log, $scope, utils) {
 
       $timeout(function() {
         setImageClass();
-      }, 1000);
+      }, 300);
     } else {
       nextMonth();
       gotoNext();
@@ -61,7 +61,7 @@ app.controller('AppCtrl', function($timeout, $log, $scope, utils) {
 
       $timeout(function() {
         setImageClass();
-      }, 1000);
+      }, 300);
     } else {
       previousMonth();
       gotoPrevious();
