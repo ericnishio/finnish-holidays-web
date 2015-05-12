@@ -91,21 +91,21 @@ app.controller('AppCtrl', function($log, $scope, utils) {
 
   $scope.previous = function() {
     gotoPrevious();
-    $scope.$apply();
   };
 
   $scope.next = function() {
     gotoNext();
-    $scope.$apply();
   };
 
   $scope.$on('keyboard.pressed', function(event, key) {
     if (key === KEY_LEFT) {
-      return $scope.previous();
+      $scope.previous();
     }
 
     if (key === KEY_RIGHT) {
-      return $scope.next();
+      $scope.next();
     }
+
+    $scope.$apply();
   });
 });
