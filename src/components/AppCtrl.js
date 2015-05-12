@@ -6,6 +6,7 @@ var KEY_LEFT = 37;
 var KEY_RIGHT = 39;
 
 app.controller('AppCtrl', function($log, $scope, utils) {
+  var currentHoliday;
   var currentDate = moment();
   var currentIndex = -1;
 
@@ -20,7 +21,7 @@ app.controller('AppCtrl', function($log, $scope, utils) {
 
       if (!found && hDate >= currentDate) {
         found = true;
-        $scope.currentHoliday = h;
+        currentHoliday = h;
         currentDate = moment([h.year, h.month - 1, h.day]).add(1, 'days');
         currentIndex = i;
       }
@@ -36,7 +37,7 @@ app.controller('AppCtrl', function($log, $scope, utils) {
     var holidays = getHolidays();
 
     if (holidays.length > 0 && currentIndex < holidays.length - 1) {
-      $scope.currentHoliday = holidays[currentIndex + 1];
+      currentHoliday = holidays[currentIndex + 1];
       currentIndex += 1;
     } else {
       nextMonth();
@@ -48,7 +49,7 @@ app.controller('AppCtrl', function($log, $scope, utils) {
     var holidays = getHolidays();
 
     if (holidays.length > 0 && currentIndex > 0) {
-      $scope.currentHoliday = holidays[currentIndex - 1];
+      currentHoliday = holidays[currentIndex - 1];
       currentIndex -= 1;
     } else {
       previousMonth();
@@ -73,19 +74,19 @@ app.controller('AppCtrl', function($log, $scope, utils) {
   }
 
   $scope.getHoliday = function() {
-    return $scope.currentHoliday;
+    return currentHoliday;
   };
 
   $scope.getDate = function() {
-    return utils.getDateMedium($scope.currentHoliday);
+    return utils.getDateMedium(currentHoliday);
   };
 
   $scope.getUntil = function() {
-    return utils.getDaysUntil($scope.currentHoliday);
+    return utils.getDaysUntil(currentHoliday);
   };
 
   $scope.getImage = function() {
-    return utils.getImage($scope.currentHoliday);
+    return utils.getImage(currentHoliday);
   };
 
   $scope.previous = function() {
