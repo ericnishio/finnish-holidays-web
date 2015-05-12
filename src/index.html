@@ -33,19 +33,22 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
   </script>
-  <section class="section">
-    <div class="section__column section__column--background" style="background-image: url({{ getImage().url }})">
-      <div class="box">
-        <div class="box__row">
-          <small class="text-small text-small--secondary" ng-bind="getDate()"></small>
-          <small class="text-small" ng-bind="getUntil()"></small>
-        </div>
-        <div class="box__row">
-          <h1 class="heading" ng-bind="getHoliday().description"></h1>
+  <div class="background-image {{ imageVisibleClass }} {{ imageClass }}"></div>
+  <div class="main-content">
+    <section class="section">
+      <div class="section__column">
+        <div class="box">
+          <div class="box__row">
+            <small class="text-small text-small--secondary" ng-bind="getDate()"></small>
+            <small class="text-small" ng-bind="getUntil()"></small>
+          </div>
+          <div class="box__row">
+            <h1 class="heading" ng-bind="getHoliday().description"></h1>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
   <div class="image-attribution">
     <div class="fb-share-button" data-href="http://finnishholidays.com" data-layout="button"></div>
     Image courtesy of {{ getImage().attribution }}

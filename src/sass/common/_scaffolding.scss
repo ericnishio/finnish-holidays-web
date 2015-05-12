@@ -2,19 +2,21 @@
   position: relative;
 }
 
+.main-content {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
 .section {
   @include grid-row();
   max-width: 100%;
+  height: inherit;
 
   &__column {
     @include grid-column($columns: 12, $center: true);
     display: table;
-
-    &--background {
-      background-size: 100% 100%;
-      height: 100%;
-      position: fixed;
-    }
+    height: inherit;
   }
 }
 
