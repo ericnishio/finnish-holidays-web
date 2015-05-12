@@ -71,7 +71,7 @@ gulp.task('sass', function() {
 
 gulp.task('optimize:js', ['build:prod'], function() {
   return gulp.src('./dist/app.js')
-    .pipe(ngAnnotate({single_quotes: true}))
+    .pipe(ngAnnotate({ single_quotes: true }))
     .pipe(uglify({mangle: true}))
     .pipe(gulp.dest('./dist'));
 });
