@@ -22,61 +22,58 @@ app.factory('utils', function() {
     getDaysUntil: function(holiday) {
       return moment(this.getDate(holiday)).startOf('hour').fromNow();
     },
-    getImage: function(holiday) {
+    getImageConfig: function(holiday) {
       switch (holiday.description) {
-        case "New Year's Eve":
-          return this.createImage('/images/new-year.jpg', 'Niklas Sjöblom');
+        case "New Year's Day":
+          return this.imageConfig('background-image--new-year', 'Niklas Sjöblom');
 
         case 'Epiphany':
-          return this.createImage('/images/epiphany.jpg', 'Pasi Tuominen');
+          return this.imageConfig('background-image--epiphany', 'Pasi Tuominen');
 
         case 'Good Friday':
-          return this.createImage('/images/good-friday.jpg', 'Pörrö');
+          return this.imageConfig('background-image--good-friday', 'Pörrö');
 
         case 'Easter Sunday':
-          return this.createImage('/images/easter-sunday.jpg', 'Sorin Mutu');
+          return this.imageConfig('background-image--easter-sunday', 'Sorin Mutu');
 
         case 'Easter Monday':
-          return this.createImage('/images/easter-monday.jpg', 'Theen Moy');
+          return this.imageConfig('background-image--easter-monday', 'Theen Moy');
 
         case 'May Day':
-          return this.createImage('/images/may-day.jpg', 'Darren Webb');
+          return this.imageConfig('background-image--may-day', 'Darren Webb');
 
         case 'Ascension Day':
-          return this.createImage('/images/ascension-day.jpg', 'Glen Forde');
+          return this.imageConfig('background-image--ascension-day', 'Glen Forde');
 
         case 'Pentecost':
-          return this.createImage('/images/pentecost.jpg', 'Jussi-Pekka Erkkola');
+          return this.imageConfig('background-image--pentecost', 'Jussi-Pekka Erkkola');
 
         case 'Midsummer Eve':
-          return this.createImage('/images/midsummer-eve.jpg', 'Michael Holler');
+          return this.imageConfig('background-image--midsummer-eve', 'Michael Holler');
 
         case 'Midsummer Day':
-          return this.createImage('/images/midsummer-day.jpg', 'Heather Sunderland');
+          return this.imageConfig('background-image--midsummer-day', 'Heather Sunderland');
 
         case "All Saints' Day":
-          return this.createImage('/images/all-saints-day.jpg', 'Cuong Nguyen');
+          return this.imageConfig('background-image--all-saints-day', 'Cuong Nguyen');
 
         case 'Independence Day':
-          return this.createImage('/images/independence-day.jpg', 'Vestman');
+          return this.imageConfig('background-image--independence-day', 'Vestman');
 
         case 'Christmas Eve':
-          return this.createImage('/images/christmas-eve.jpg', 'frozenreindeer');
+          return this.imageConfig('background-image--christmas-eve', 'frozenreindeer');
 
         case 'Christmas Day':
-          return this.createImage('/images/christmas-day.jpg', 'Naomi Sano');
+          return this.imageConfig('background-image--christmas-day', 'Naomi Sano');
 
         case "St. Stephen's Day":
-          return this.createImage('/images/st-stephens-day.jpg', 'Janne');
-
-        default:
-          return this.createImage('/images/may-day.jpg', 'Darren Webb');
+          return this.imageConfig('background-image--st-stephens-day', 'Janne');
       }
     },
-    createImage: function(url, photographer) {
+    imageConfig: function(cssClass, photographer) {
       return {
         attribution: photographer,
-        url: url
+        cssClass: cssClass
       };
     }
   };

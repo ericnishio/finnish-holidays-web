@@ -85,7 +85,7 @@ app.controller('AppCtrl', function($timeout, $log, $scope, utils) {
   }
 
   function setImageClass(holiday) {
-    $scope.imageClass = getImageClass(currentHoliday.description);
+    $scope.imageClass = utils.getImageConfig(currentHoliday).cssClass;
     showImage();
   }
 
@@ -95,58 +95,6 @@ app.controller('AppCtrl', function($timeout, $log, $scope, utils) {
 
   function showImage() {
     $scope.imageVisibleClass = 'background-image--visible';
-  }
-
-  function getImageClass(day) {
-    switch (day) {
-      case "All Saint's Day":
-        return 'background-image--all-saints-day';
-
-      case 'Ascension Day':
-        return 'background-image--ascension-day';
-
-      case 'Christmas Day':
-        return 'background-image--christmas-day';
-
-      case 'Christmas Eve':
-        return 'background-image--christmas-eve';
-
-      case 'Easter Monday':
-        return 'background-image--easter-monday';
-
-      case 'Easter Sunday':
-        return 'background-image--easter-sunday';
-
-      case 'Epiphany':
-        return 'background-image--epiphany';
-
-      case 'Good Friday':
-        return 'background-image--good-friday';
-
-      case 'Independence Day':
-        return 'background-image--independence-day';
-
-      case 'May Day':
-        return 'background-image--may-day';
-
-      case 'Midsummer Day':
-        return 'background-image--midsummer-day';
-
-      case 'Midsummer Eve':
-        return 'background-image--midsummer-eve';
-
-      case "New Year's Day":
-        return 'background-image--new-year';
-
-      case 'Pentecost':
-        return 'background-image--pentecost';
-
-      case "St. Stephen's Day":
-        return 'background-image--st-stephens-day';
-
-      case 'Midsummer Eve':
-        return 'background-image--midsummer-eve';
-    }
   }
 
   $scope.getHoliday = function() {
@@ -161,8 +109,8 @@ app.controller('AppCtrl', function($timeout, $log, $scope, utils) {
     return utils.getDaysUntil(currentHoliday);
   };
 
-  $scope.getImage = function() {
-    return utils.getImage(currentHoliday);
+  $scope.getImageAttribution = function() {
+    return utils.getImageConfig(currentHoliday).attribution;
   };
 
   $scope.previous = function() {
