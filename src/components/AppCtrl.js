@@ -10,10 +10,9 @@ app.controller('AppCtrl', function($q, $timeout, $log, $scope, utils) {
   var currentHoliday;
   var currentDate = moment();
   var currentIndex = -1;
-  var translation;
-  var translationLanguage = null;
-  var isTranslating = false;
   var isHovered = false;
+  var front = 'en';
+  var back = 'fi';
 
   findInitial();
 
@@ -42,8 +41,6 @@ app.controller('AppCtrl', function($q, $timeout, $log, $scope, utils) {
   function gotoNext() {
     var holidays = getHolidays();
 
-    translateInto(null);
-
     if (holidays.length > 0 && currentIndex < holidays.length - 1) {
       currentHoliday = holidays[currentIndex + 1];
       currentIndex += 1;
@@ -60,8 +57,6 @@ app.controller('AppCtrl', function($q, $timeout, $log, $scope, utils) {
 
   function gotoPrevious() {
     var holidays = getHolidays();
-
-    translateInto(null);
 
     if (holidays.length > 0 && currentIndex > 0) {
       hideImage();
@@ -106,16 +101,6 @@ app.controller('AppCtrl', function($q, $timeout, $log, $scope, utils) {
     $scope.imageVisibleClass = 'background-image--visible';
   }
 
-  function translateInto(language) {
-    if (!language) {
-      translation = null;
-      translationLanguage = null;
-    } else {
-      translation = FinnishHolidays.translate(currentHoliday.description, language);
-      translationLanguage = language;
-    }
-  }
-
   $scope.getHoliday = function() {
     return currentHoliday;
   };
@@ -140,26 +125,30 @@ app.controller('AppCtrl', function($q, $timeout, $log, $scope, utils) {
     gotoNext();
   };
 
-  $scope.getDescription = function() {
-    if (translation) {
-      return translation;
-    } else {
+  $scope.getDescription = function(language) {
+    if (language === 'fi') {
+      return FinnishHolidays.translate(currentHoliday.description, 'fi');
+    }
+
+    if (language === 'sv') {
+      return FinnishHolidays.translate(currentHoliday.description, 'sv');
+    }
+
+    if (language === 'en') {
       return currentHoliday.description;
     }
   };
 
-  $scope.translate = function() {
-    if (!translationLanguage) {
-      return translateInto('fi');
-    }
+  $scope.getEnglish = function() {
+    return $scope.getDescription('en');
+  };
 
-    if (translationLanguage === 'fi') {
-      return translateInto('sv');
-    }
+  $scope.getFinnish = function() {
+    return $scope.getDescription('fi');
+  };
 
-    if (translationLanguage === 'sv') {
-      return translateInto(null);
-    }
+  $scope.getSwedish = function() {
+    return $scope.getDescription('sv');
   };
 
   $scope.$on('keyboard.pressed', function(event, key) {

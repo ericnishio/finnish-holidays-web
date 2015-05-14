@@ -1,0 +1,26 @@
+.flipper {
+  height: 180px;
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+
+  @media #{$medium-only} {
+    height: 131px;
+  }
+
+  @media #{$small-only} {
+    height: 82px;
+  }
+
+  &__side {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform ease 500ms;
+    transition: transform ease 500ms;
+  }
+}
