@@ -11,6 +11,7 @@ app.controller('AppCtrl', function($q, $timeout, $log, $scope, utils) {
   var currentDate = moment();
   var currentIndex = -1;
   var translation;
+  var translationLanguage = null;
   var isTranslating = false;
   var isHovered = false;
 
@@ -41,6 +42,8 @@ app.controller('AppCtrl', function($q, $timeout, $log, $scope, utils) {
   function gotoNext() {
     var holidays = getHolidays();
 
+    translateInto(null);
+
     if (holidays.length > 0 && currentIndex < holidays.length - 1) {
       currentHoliday = holidays[currentIndex + 1];
       currentIndex += 1;
@@ -57,6 +60,8 @@ app.controller('AppCtrl', function($q, $timeout, $log, $scope, utils) {
 
   function gotoPrevious() {
     var holidays = getHolidays();
+
+    translateInto(null);
 
     if (holidays.length > 0 && currentIndex > 0) {
       hideImage();
@@ -101,6 +106,16 @@ app.controller('AppCtrl', function($q, $timeout, $log, $scope, utils) {
     $scope.imageVisibleClass = 'background-image--visible';
   }
 
+  function translateInto(language) {
+    if (!language) {
+      translation = null;
+      translationLanguage = null;
+    } else {
+      translation = FinnishHolidays.translate(currentHoliday.description, language);
+      translationLanguage = language;
+    }
+  }
+
   $scope.getHoliday = function() {
     return currentHoliday;
   };
@@ -133,81 +148,19 @@ app.controller('AppCtrl', function($q, $timeout, $log, $scope, utils) {
     }
   };
 
-  $scope.hoverDescription = function() {
-    isHovered = true;
-    rotateTranslations();
+  $scope.translate = function() {
+    if (!translationLanguage) {
+      return translateInto('fi');
+    }
+
+    if (translationLanguage === 'fi') {
+      return translateInto('sv');
+    }
+
+    if (translationLanguage === 'sv') {
+      return translateInto(null);
+    }
   };
-
-  $scope.unhoverDescription = function() {
-    isHovered = false;
-  };
-
-  function rotateTranslations() {
-    beginTranslation()
-      .then(getFinnish)
-      .then(getSwedish)
-      .finally(endTranslation);
-  }
-
-  function getFinnish() {
-    var dfd = $q.defer();
-
-    if (isTranslating) {
-      translation = FinnishHolidays.translate(currentHoliday.description, 'fi');
-    }
-
-    $timeout(function() {
-      if (isHovered) {
-        dfd.resolve();
-      } else {
-        dfd.reject();
-      }
-    }, INTERVAL);
-
-    return dfd.promise;
-  }
-
-  function getSwedish() {
-    var dfd = $q.defer();
-
-    if (isTranslating) {
-      translation = FinnishHolidays.translate(currentHoliday.description, 'sv');
-    }
-
-    $timeout(function() {
-      if (isHovered) {
-        dfd.resolve();
-      } else {
-        dfd.reject();
-      }
-    }, INTERVAL);
-
-    return dfd.promise;
-  }
-
-  function beginTranslation() {
-    var dfd = $q.defer();
-
-    if (!isTranslating && isHovered) {
-      isTranslating = true;
-      dfd.resolve();
-    } else {
-      dfd.reject();
-    }
-
-    return dfd.promise;
-  }
-
-  function endTranslation() {
-    translation = null;
-
-    $timeout(function() {
-      if (isHovered) {
-        isTranslating = false;
-        rotateTranslations();
-      }
-    }, INTERVAL);
-  }
 
   $scope.$on('keyboard.pressed', function(event, key) {
     if (key === KEY_LEFT) {
