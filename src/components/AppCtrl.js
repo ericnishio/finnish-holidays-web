@@ -4,11 +4,15 @@ var FinnishHolidays = require('finnish-holidays-js');
 
 var KEY_LEFT = 37;
 var KEY_RIGHT = 39;
+var INTERVAL = 1500;
 
-app.controller('AppCtrl', function($timeout, $log, $scope, utils) {
+app.controller('AppCtrl', function($q, $timeout, $log, $scope, utils) {
   var currentHoliday;
   var currentDate = moment();
   var currentIndex = -1;
+  var translation;
+  var isTranslating = false;
+  var isHovered = false;
 
   findInitial();
 
@@ -120,6 +124,90 @@ app.controller('AppCtrl', function($timeout, $log, $scope, utils) {
   $scope.next = function() {
     gotoNext();
   };
+
+  $scope.getDescription = function() {
+    if (translation) {
+      return translation;
+    } else {
+      return currentHoliday.description;
+    }
+  };
+
+  $scope.hoverDescription = function() {
+    isHovered = true;
+    rotateTranslations();
+  };
+
+  $scope.unhoverDescription = function() {
+    isHovered = false;
+  };
+
+  function rotateTranslations() {
+    beginTranslation()
+      .then(getFinnish)
+      .then(getSwedish)
+      .finally(endTranslation);
+  }
+
+  function getFinnish() {
+    var dfd = $q.defer();
+
+    if (isTranslating) {
+      translation = FinnishHolidays.translate(currentHoliday.description, 'fi');
+    }
+
+    $timeout(function() {
+      if (isHovered) {
+        dfd.resolve();
+      } else {
+        dfd.reject();
+      }
+    }, INTERVAL);
+
+    return dfd.promise;
+  }
+
+  function getSwedish() {
+    var dfd = $q.defer();
+
+    if (isTranslating) {
+      translation = FinnishHolidays.translate(currentHoliday.description, 'sv');
+    }
+
+    $timeout(function() {
+      if (isHovered) {
+        dfd.resolve();
+      } else {
+        dfd.reject();
+      }
+    }, INTERVAL);
+
+    return dfd.promise;
+  }
+
+  function beginTranslation() {
+    var dfd = $q.defer();
+
+    if (!isTranslating && isHovered) {
+      isTranslating = true;
+      dfd.resolve();
+    } else {
+      dfd.reject();
+    }
+
+    return dfd.promise;
+  }
+
+  function endTranslation() {
+    translation = null;
+
+    $timeout(function() {
+      if (isHovered) {
+        isTranslating = false;
+        rotateTranslations();
+      }
+    }, INTERVAL);
+  }
 
   $scope.$on('keyboard.pressed', function(event, key) {
     if (key === KEY_LEFT) {
