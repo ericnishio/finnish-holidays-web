@@ -8,6 +8,11 @@
     "type": "git",
     "url": "git@bitbucket.org:ericnishio/finnish-holidays-web.git"
   },
+  "scripts": {
+    "start": "node node_modules/gulp/bin/gulp.js",
+    "deploy": "node node_modules/gulp/bin/gulp.js deploy",
+    "deploy:all": "node node_modules/gulp/bin/gulp.js deploy:all"
+  },
   "license": "ISC",
   "devDependencies": {
     "browserify": "^10.1.3",

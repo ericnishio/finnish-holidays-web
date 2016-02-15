@@ -16,7 +16,7 @@ Open and configure the `.env` file.
 ## Start Development Environment
 
 ```
-$ gulp
+$ npm start
 ```
 
 Launch your browser and navigate to: `http://localhost:1337`
@@ -24,11 +24,11 @@ Launch your browser and navigate to: `http://localhost:1337`
 ## Deploy
 
 ```
-$ gulp deploy
+$ npm run deploy
 ```
 
 Deploy with images:
 
 ```
-$ gulp deploy:all
+$ npm run deploy:all
 ```
