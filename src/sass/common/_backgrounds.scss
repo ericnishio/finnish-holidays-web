@@ -11,6 +11,10 @@
   -o-transition: opacity 0.2s ease-in;
   transition: opacity 0.2s ease-in;
 
+  @media #{$small-only} {
+    background-size: 360%;
+  }
+
   &--visible {
     opacity: 1;
     -webkit-transition: opacity 0.2s ease-out;
@@ -45,6 +49,10 @@
 
   &--epiphany {
     background-image: url('/images/epiphany.jpg');
+
+    @media #{$small-only} {
+      background-position: 45% 10%;
+    }
   }
 
   &--good-friday {
@@ -53,10 +61,18 @@
 
   &--independence-day {
     background-image: url('/images/independence-day.jpg');
+
+    @media #{$small-only} {
+      background-position: 33% 10%;
+    }
   }
 
   &--may-day {
     background-image: url('/images/may-day.jpg');
+
+    @media #{$small-only} {
+      background-position: 10% 85%;
+    }
   }
 
   &--midsummer-day {
