@@ -1,5 +1,5 @@
 require('./components/app');
-require('./components/AppCtrl');
+require('./components/app-ctrl');
 require('./components/utils');
 require('./components/keyboard');
 require('./components/flipper');
