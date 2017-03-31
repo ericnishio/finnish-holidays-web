@@ -4,14 +4,7 @@ var moment = require('moment');
 app.factory('utils', function() {
   return {
     createDate: function(year, month, day) {
-      var date = new Date();
-      date.setYear(year);
-      date.setMonth(month - 1);
-      date.setDate(day);
-      date.setHours(0);
-      date.setMinutes(0);
-      date.setSeconds(0);
-      return date;
+      return moment(year + '-' + month + '-' + day, 'Y-M-D')
     },
     getDate: function(holiday) {
       return this.createDate(holiday.year, holiday.month, holiday.day);
