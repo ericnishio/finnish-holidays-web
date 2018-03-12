@@ -6,6 +6,7 @@ import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
 import {Heading, Subheading, Capitalize, Underline} from '../common/components/Typography'
 import Button from '../common/components/Button'
 import {getNextHoliday, getHolidayAfter, getHolidayBefore} from '../common/helpers'
+import LOGO from '../assets/images/logo.png'
 
 class App extends Component {
   state = {
@@ -33,6 +34,7 @@ class App extends Component {
     return (
       <Board>
         <Center>
+          <Logo src={LOGO} alt="Finnish Holidays" />
           <Subheading style={{marginBottom: '10px'}}>
             {timeUntil}
           </Subheading>
@@ -69,6 +71,11 @@ const Center = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
+`
+
+const Logo = styled.img`
+  width: 75px; height: auto;
+  margin-bottom: 40px;
 `
 
 const Navigation = styled.div`
