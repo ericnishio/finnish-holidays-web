@@ -31,6 +31,11 @@ class App extends Component {
       {addSuffix: true}
     )
 
+    const date = format(
+      new Date(holiday.year, holiday.month - 1, holiday.day),
+      'ddd, MMM D'
+    ).toUpperCase()
+
     return (
       <Board>
         <Center>
@@ -50,7 +55,7 @@ class App extends Component {
               textAlign: 'center',
             }}
           >
-            {format(new Date(holiday.year, holiday.month - 1, holiday.day), 'ddd, MMM D').toUpperCase()}
+            {date}
           </Capitalize>
           <Button direction="right" onClick={this.next} />
         </Navigation>

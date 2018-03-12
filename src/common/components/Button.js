@@ -24,7 +24,7 @@ const Arrow = ({direction, style}) => {
   }
 
   if (direction === 'right') {
-    return <ArrowRight style={{marginLeft: '3px', ...style}}/>
+    return <ArrowRight style={{marginLeft: '6px', ...style}}/>
   }
 
   return null
@@ -48,7 +48,6 @@ const Circle = styled.div`
     cursor: pointer;
   }
 
-  &:focus,
   &:active {
     opacity: 0.6;
   }
