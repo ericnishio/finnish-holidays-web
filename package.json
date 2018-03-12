@@ -1,0 +1,26 @@
+{
+  "name": "finnish-holidays-web",
+  "version": "2.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.0",
+    "styled-components": "^3.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "deploy": "yarn build && yarn s3:clean && yarn upload:all && yarn upload:html && yarn upload:serviceworker",
+    "s3:clean": "aws s3 rm s3://finnishholidays.com --recursive",
+    "upload:all": "aws s3 sync build s3://finnishholidays.com --acl public-read",
+    "upload:html": "aws s3 cp build/index.html s3://finnishholidays.com --acl public-read --cache-control max-age=0",
+    "upload:serviceworker": "aws s3 cp build/service-worker.js s3://finnishholidays.com --acl public-read --cache-control max-age=0",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "eslint": "^4.16.0",
+    "eslint-plugin-react": "^7.6.1"
+  }
+}
