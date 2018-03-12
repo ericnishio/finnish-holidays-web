@@ -48,7 +48,7 @@ const Center = styled.div`
 const Navigation = styled.div`
   align-items: center; justify-content: center;
   display: flex;
-  height: 120px;
+  height: 150px;
 `
 
 export default App
