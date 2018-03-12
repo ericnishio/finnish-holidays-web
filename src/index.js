@@ -6,6 +6,7 @@ import App from './bootstrap/App'
 import registerServiceWorker from './bootstrap/registerServiceWorker'
 import {BACKGROUND_COLOR, TEXT_COLOR, LINK_COLOR} from './common/styles/colors'
 import {PRIMARY_FONT, MEDIUM_FONT_SIZE} from './common/styles/fonts'
+import './assets/fonts/futura.css'
 
 ReactDOM.render(<App />, document.getElementById('root'))
 
@@ -14,6 +15,10 @@ registerServiceWorker()
 injectGlobal`
   * {
     box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
   }
 
   body {
@@ -40,5 +45,10 @@ injectGlobal`
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  #root {
+    display: flex;
+    height: 100%;
   }
 `

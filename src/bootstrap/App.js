@@ -1,17 +1,29 @@
 import React, {Component} from 'react'
-
-import {Row, Content} from '../common/components/Grid'
+import styled from 'styled-components'
 
 class App extends Component {
   render() {
     return (
-      <Row>
-        <Content>
-          Finnish Holidays
-        </Content>
-      </Row>
+      <Board>
+        <Center>
+          Independence Day
+        </Center>
+      </Board>
     )
   }
 }
+
+const Board = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+`
+
+const Center = styled.div`
+  align-items: center; justify-content: center;
+  display: flex;
+  flex: 1;
+`
 
 export default App

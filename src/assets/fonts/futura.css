@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Futura Medium';
+  src: url('futura-medium.woff2') format('woff2'),
+       url('futura-medium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
