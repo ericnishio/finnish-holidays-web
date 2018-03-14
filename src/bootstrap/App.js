@@ -89,12 +89,18 @@ const Navigation = styled.div`
 `
 
 const DateText = Capitalize.extend`
-  display: block;
+  align-items: center; justify-content: center;
+  display: flex;
+  height: 50px;
   min-width: 160px;
   text-align: center;
 
   &:hover {
     cursor: pointer;
+  }
+
+  &:active {
+    opacity: 0.6;
   }
 
   @media (min-width: ${DESKTOP_MIN_WIDTH}) {

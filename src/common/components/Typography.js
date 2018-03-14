@@ -30,7 +30,7 @@ export const Subheading = Capitalize.extend`
 `
 
 export const Underline = styled.div`
-  width: 100px;
+  width: 120px;
   height: 2px;
   background: ${WHITE};
 
