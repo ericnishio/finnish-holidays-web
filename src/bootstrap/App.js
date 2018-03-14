@@ -10,9 +10,31 @@ import {DESKTOP_MIN_WIDTH} from '../common/styles/responsive'
 import FacebookShare from '../common/components/FacebookShare'
 import LOGO from '../assets/images/logo.png'
 
+const Keyboard = {
+  LEFT: 37,
+  RIGHT: 39,
+  ESC: 27,
+}
+
 class App extends Component {
   state = {
     holiday: getNextHoliday(),
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', ({keyCode}) => {
+      if (keyCode === Keyboard.RIGHT) {
+        this.next()
+      }
+
+      if (keyCode === Keyboard.LEFT) {
+        this.previous()
+      }
+
+      if (keyCode === Keyboard.ESC) {
+        this.current()
+      }
+    })
   }
 
   previous = () => this.setState(prevState => ({
