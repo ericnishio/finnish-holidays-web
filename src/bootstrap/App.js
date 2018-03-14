@@ -7,6 +7,7 @@ import {Heading, Subheading, Capitalize, Underline} from '../common/components/T
 import Button from '../common/components/Button'
 import {getNextHoliday, getHolidayAfter, getHolidayBefore} from '../common/helpers'
 import {DESKTOP_MIN_WIDTH} from '../common/styles/responsive'
+import FacebookShare from '../common/components/FacebookShare'
 import LOGO from '../assets/images/logo.png'
 
 class App extends Component {
@@ -49,6 +50,7 @@ class App extends Component {
           <Heading>{holiday.description.replace(`'`, '’')}</Heading>
           <Underline style={{marginTop: '40px'}} />
         </Center>
+        <FacebookShare style={{position: 'absolute', top: 15, right: 15}} />
         <Navigation>
           <Button direction="left" onClick={this.previous} />
           <DateText onClick={this.current}>
