@@ -75,7 +75,7 @@ class App extends Component {
           <Heading>{holiday.description.replace(`'`, '’')}</Heading>
           <Underline style={{marginTop: '40px'}} />
         </Center>
-        <FacebookShare style={{position: 'absolute', top: 15, right: 15}} />
+        <FacebookShare style={{position: 'absolute', top: '15px', right: '15px'}} />
         <Navigation>
           <Button direction="left" onClick={this.previous} />
           <DateText onClick={this.current}>
