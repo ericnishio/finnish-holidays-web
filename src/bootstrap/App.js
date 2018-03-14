@@ -120,6 +120,7 @@ const DateText = Capitalize.extend`
   height: 50px;
   min-width: 160px;
   text-align: center;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   &:hover {
     cursor: pointer;

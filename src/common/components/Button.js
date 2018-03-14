@@ -43,6 +43,7 @@ const Circle = styled.div`
   width: 50px; height: 50px;
   opacity: 1;
   transition: opacity 0.1s linear;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   &:hover {
     cursor: pointer;
