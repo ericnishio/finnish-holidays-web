@@ -1,5 +1,14 @@
-export const PRIMARY_FONT = `'Futura Medium', sans-serif`
-export const HEADING_FONT = `'Futura Medium', sans-serif`
+export const FontFamily = {
+  PRIMARY: `'Futura Medium', sans-serif`,
+}
 
-export const SMALL_FONT_SIZE = '16px'
-export const LARGE_FONT_SIZE = '28px'
+export const FontSize = {
+  Mobile: {
+    SMALL: '16px',
+    LARGE: '28px',
+  },
+  Desktop: {
+    SMALL: '22px',
+    LARGE: '54px',
+  },
+}

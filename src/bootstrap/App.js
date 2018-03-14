@@ -6,6 +6,7 @@ import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
 import {Heading, Subheading, Capitalize, Underline} from '../common/components/Typography'
 import Button from '../common/components/Button'
 import {getNextHoliday, getHolidayAfter, getHolidayBefore} from '../common/helpers'
+import {DESKTOP_MIN_WIDTH} from '../common/styles/responsive'
 import LOGO from '../assets/images/logo.png'
 
 class App extends Component {
@@ -13,15 +14,17 @@ class App extends Component {
     holiday: getNextHoliday(),
   }
 
-  previous = () =>
-    this.setState(prevState => ({
-      holiday: getHolidayBefore(prevState.holiday),
-    }))
+  previous = () => this.setState(prevState => ({
+    holiday: getHolidayBefore(prevState.holiday),
+  }))
 
-  next = () =>
-    this.setState(prevState => ({
-      holiday: getHolidayAfter(prevState.holiday),
-    }))
+  next = () => this.setState(prevState => ({
+    holiday: getHolidayAfter(prevState.holiday),
+  }))
+
+  current = () => this.setState({
+    holiday: getNextHoliday(),
+  })
 
   render() {
     const {holiday} = this.state
@@ -48,15 +51,9 @@ class App extends Component {
         </Center>
         <Navigation>
           <Button direction="left" onClick={this.previous} />
-          <Capitalize
-            style={{
-              display: 'block',
-              minWidth: '160px',
-              textAlign: 'center',
-            }}
-          >
+          <DateText onClick={this.current}>
             {date}
-          </Capitalize>
+          </DateText>
           <Button direction="right" onClick={this.next} />
         </Navigation>
       </Board>
@@ -87,6 +84,20 @@ const Navigation = styled.div`
   align-items: center; justify-content: center;
   display: flex;
   height: 150px;
+`
+
+const DateText = Capitalize.extend`
+  display: block;
+  min-width: 160px;
+  text-align: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  @media (min-width: ${DESKTOP_MIN_WIDTH}) {
+    min-width: 200px;
+  }
 `
 
 export default App

@@ -5,7 +5,7 @@ import {injectGlobal} from 'styled-components'
 import App from './bootstrap/App'
 import registerServiceWorker from './bootstrap/registerServiceWorker'
 import {BACKGROUND_COLOR, TEXT_COLOR, LINK_COLOR} from './common/styles/colors'
-import {PRIMARY_FONT, SMALL_FONT_SIZE} from './common/styles/fonts'
+import {FontFamily, FontSize} from './common/styles/fonts'
 import './assets/fonts/futura.css'
 
 ReactDOM.render(<App />, document.getElementById('root'))
@@ -23,8 +23,8 @@ injectGlobal`
 
   body {
     background-color: ${BACKGROUND_COLOR};
-    font-family: ${PRIMARY_FONT};
-    font-size: ${SMALL_FONT_SIZE};
+    font-family: ${FontFamily.PRIMARY};
+    font-size: ${FontSize.Mobile.SMALL};
     color: ${TEXT_COLOR};
     margin: 0;
   }

@@ -1,16 +1,16 @@
 import styled from 'styled-components'
 
-export const TABLET_MAX_WIDTH = '767px'
-export const TABLET_MIN_WIDTH = '768px'
+export const MOBILE_MAX_WIDTH = '767px'
+export const DESKTOP_MIN_WIDTH = '768px'
 
 export const MobileOnly = styled.div`
-  @media (min-width: ${TABLET_MIN_WIDTH}) {
+  @media (min-width: ${DESKTOP_MIN_WIDTH}) {
     display: none;
   }
 `
 
 export const DesktopOnly = styled.div`
-  @media (max-width: ${TABLET_MAX_WIDTH}) {
+  @media (max-width: ${MOBILE_MAX_WIDTH}) {
     display: none;
   }
 `
