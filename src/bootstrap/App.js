@@ -78,8 +78,12 @@ const Center = styled.div`
 `
 
 const Logo = styled.img`
-  width: 75px; height: auto;
-  margin-bottom: 40px;
+  width: 110px; height: auto;
+  margin-bottom: 35px;
+
+  @media (min-width: ${DESKTOP_MIN_WIDTH}) {
+    width: 130px;
+  }
 `
 
 const Navigation = styled.div`
