@@ -6,6 +6,7 @@ import App from './bootstrap/App'
 import registerServiceWorker from './bootstrap/registerServiceWorker'
 import {BACKGROUND_COLOR, TEXT_COLOR, LINK_COLOR} from './common/styles/colors'
 import {FontFamily, FontSize} from './common/styles/fonts'
+import {DESKTOP_MIN_WIDTH} from './common/styles/responsive'
 import './assets/fonts/futura.css'
 
 ReactDOM.render(<App />, document.getElementById('root'))
@@ -24,9 +25,13 @@ injectGlobal`
   body {
     background-color: ${BACKGROUND_COLOR};
     font-family: ${FontFamily.PRIMARY};
-    font-size: ${FontSize.Mobile.SMALL};
+    font-size: ${FontSize.Mobile.MEDIUM};
     color: ${TEXT_COLOR};
     margin: 0;
+
+    @media (min-width: ${DESKTOP_MIN_WIDTH}) {
+      font-size: ${FontSize.Desktop.MEDIUM};
+    }
   }
 
   a {

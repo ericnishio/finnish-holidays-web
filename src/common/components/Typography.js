@@ -15,18 +15,30 @@ export const Heading = styled.h1`
 `
 
 export const Capitalize = styled.span`
-  font-size: ${FontSize.Mobile.SMALL};
+  font-size: ${FontSize.Mobile.MEDIUM};
   font-weight: normal;
   margin: 0;
   text-transform: uppercase;
 
   @media (min-width: ${DESKTOP_MIN_WIDTH}) {
-    font-size: ${FontSize.Desktop.SMALL};
+    font-size: ${FontSize.Desktop.MEDIUM};
   }
 `
 
 export const Subheading = Capitalize.extend`
   color: ${YELLOW};
+`
+
+export const Emphasize = styled.span`
+  color: ${YELLOW};
+`
+
+export const Small = styled.span`
+  font-size: ${FontSize.Mobile.SMALL};
+
+  @media (min-width: ${DESKTOP_MIN_WIDTH}) {
+    font-size: ${FontSize.Desktop.SMALL};
+  }
 `
 
 export const Underline = styled.div`

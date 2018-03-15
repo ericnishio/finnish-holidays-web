@@ -4,11 +4,13 @@ export const FontFamily = {
 
 export const FontSize = {
   Mobile: {
-    SMALL: '16px',
+    SMALL: '12px',
+    MEDIUM: '16px',
     LARGE: '28px',
   },
   Desktop: {
-    SMALL: '22px',
+    SMALL: '16px',
+    MEDIUM: '22px',
     LARGE: '54px',
   },
 }

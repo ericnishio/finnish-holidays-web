@@ -1,12 +1,13 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import styled from 'styled-components'
 import format from 'date-fns/format'
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
 
-import {Heading, Subheading, Capitalize, Underline} from '../common/components/Typography'
+import {Heading, Subheading, Capitalize, Emphasize, Underline} from '../common/components/Typography'
 import Button from '../common/components/Button'
-import {getNextHoliday, getHolidayAfter, getHolidayBefore} from '../common/helpers'
+import {getNextHoliday, getHolidayAfter, getHolidayBefore, getConsecutiveHolidays} from '../common/helpers'
 import {DESKTOP_MIN_WIDTH} from '../common/styles/responsive'
+import {FontSize} from '../common/styles/fonts'
 import FacebookShare from '../common/components/FacebookShare'
 import LOGO from '../assets/images/logo.png'
 
@@ -55,6 +56,8 @@ class App extends Component {
   render() {
     const {holiday} = this.state
 
+    const consecutiveHolidays = getConsecutiveHolidays(holiday)
+
     const timeUntil = distanceInWordsToNow(
       new Date(holiday.year, holiday.month - 1, holiday.day),
       {addSuffix: true}
@@ -73,7 +76,21 @@ class App extends Component {
             {timeUntil}
           </Subheading>
           <Heading>{holiday.description.replace(`'`, '’')}</Heading>
-          <Underline style={{marginTop: '40px'}} />
+          <Underline style={{marginTop: '30px'}} />
+          {
+            <Message>
+              {
+                consecutiveHolidays.length > 1 &&
+                <Fragment>
+                  <Emphasize>{consecutiveHolidays.length}</Emphasize>
+                  {' '}consecutive days off:{' '}
+                  <Emphasize>
+                    {consecutiveHolidays.map(_ => format(_.date, 'ddd')).join(', ')}
+                  </Emphasize>
+                </Fragment>
+              }
+            </Message>
+          }
         </Center>
         <FacebookShare style={{position: 'absolute', top: '15px', right: '15px'}} />
         <Navigation>
@@ -108,6 +125,17 @@ const Logo = styled.img`
 
   @media (min-width: ${DESKTOP_MIN_WIDTH}) {
     width: 130px;
+  }
+`
+
+const Message = styled.div`
+  font-size: ${FontSize.Mobile.SMALL};
+  height: 20px;
+  margin-top: 20px;
+
+  @media (min-width: ${DESKTOP_MIN_WIDTH}) {
+    font-size: ${FontSize.Desktop.SMALL};
+    height: 30px;
   }
 `
 
