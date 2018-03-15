@@ -76,7 +76,7 @@ class App extends Component {
             {timeUntil}
           </Subheading>
           <Heading>{holiday.description.replace(`'`, '’')}</Heading>
-          <Underline style={{marginTop: '30px'}} />
+          <Underline style={{marginTop: '20px'}} />
           {
             <Message>
               {
@@ -131,11 +131,12 @@ const Logo = styled.img`
 const Message = styled.div`
   font-size: ${FontSize.Mobile.SMALL};
   height: 20px;
-  margin-top: 20px;
+  margin-top: 30px;
 
   @media (min-width: ${DESKTOP_MIN_WIDTH}) {
     font-size: ${FontSize.Desktop.SMALL};
     height: 30px;
+    margin-top: 40px;
   }
 `
 
