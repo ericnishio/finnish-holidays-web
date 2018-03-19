@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import styled from 'styled-components'
 import format from 'date-fns/format'
-import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
+import distanceInWordsStrict from 'date-fns/distance_in_words_strict'
 
 import {Heading, Subheading, Capitalize, Emphasize, Underline} from '../common/components/Typography'
 import Button from '../common/components/Button'
@@ -58,9 +58,13 @@ class App extends Component {
 
     const consecutiveHolidays = getConsecutiveHolidays(holiday)
 
-    const timeUntil = distanceInWordsToNow(
+    const timeUntil = distanceInWordsStrict(
+      new Date(),
       new Date(holiday.year, holiday.month - 1, holiday.day),
-      {addSuffix: true}
+      {
+        addSuffix: true,
+        partialMethod: 'ceil',
+      }
     )
 
     const date = format(
