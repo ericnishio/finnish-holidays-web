@@ -12,7 +12,7 @@ aws s3 cp $DIR/../.tmp/$CERTBOT_TOKEN s3://finnishholidays.com/.well-known/acme-
 
 sleep 5
 
-sudo aws acm import-certificate \
+aws acm import-certificate \
 --certificate file:///etc/letsencrypt/live/finnishholidays.com/cert.pem \
 --private-key file:///etc/letsencrypt/live/finnishholidays.com/privkey.pem \
 --certificate-chain file:///etc/letsencrypt/live/finnishholidays.com/fullchain.pem \
