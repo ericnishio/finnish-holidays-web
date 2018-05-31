@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {injectGlobal} from 'styled-components'
-import 'babel-polyfill'
+import 'core-js/fn/array/find'
 
 import App from './bootstrap/App'
 import registerServiceWorker from './bootstrap/registerServiceWorker'
