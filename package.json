@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "date-fns": "^1.29.0",
     "finnish-holidays-js": "^1.1.0",
     "react": "^16.2.0",
