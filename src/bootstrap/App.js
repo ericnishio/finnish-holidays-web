@@ -171,6 +171,7 @@ const DateText = Capitalize.extend`
   min-width: 160px;
   text-align: center;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  user-select: none;
 
   &:hover {
     cursor: pointer;
