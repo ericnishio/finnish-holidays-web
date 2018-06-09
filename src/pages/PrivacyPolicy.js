@@ -20,6 +20,7 @@ const PrivacyPolicy = () =>
       Google Analytics uses cookies to collect anonymous data on how
       visitors interact with the website.
     </P>
+    <Link to="/">Back to holidays</Link>
   </Container>
 
 const Container = styled.div`

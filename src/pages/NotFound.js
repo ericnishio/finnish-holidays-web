@@ -12,7 +12,7 @@ const NotFound = () =>
       <Logo />
     </Link>
     <Heading style={{marginBottom: '20px'}}>Page not found</Heading>
-    <Link to="/">View holidays</Link>
+    <Link to="/">Back to holidays</Link>
   </Container>
 
 const Container = styled.div`
