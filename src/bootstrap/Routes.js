@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 import Holidays from '../pages/Holidays'
 import PrivacyPolicy from '../pages/PrivacyPolicy'
+import NotFound from '../pages/NotFound'
 
 const Routes = () =>
   <Router>
@@ -10,7 +11,7 @@ const Routes = () =>
       <Switch>
         <Route exact path="/" component={Holidays} />
         <Route exact path="/privacy" component={PrivacyPolicy} />
-        <Route component={Holidays} />
+        <Route component={NotFound} />
       </Switch>
     </Fragment>
   </Router>

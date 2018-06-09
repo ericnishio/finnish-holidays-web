@@ -7,6 +7,7 @@ import {Heading, Subheading, Capitalize, Emphasize, Underline} from '../common/c
 import Logo from '../common/components/Logo'
 import Button from '../common/components/Button'
 import {getNextHoliday, getHolidayAfter, getHolidayBefore, getConsecutiveHolidays} from '../common/helpers'
+import FacebookShare from '../common/components/FacebookShare'
 import {DESKTOP_MIN_WIDTH} from '../common/styles/responsive'
 import {FontSize} from '../common/styles/fonts'
 
@@ -95,6 +96,7 @@ class App extends Component {
             </Message>
           }
         </Center>
+        <FacebookShare style={{position: 'absolute', top: '15px', right: '15px'}} />
         <Navigation>
           <Button direction="left" onClick={this.previous} />
           <DateText onClick={this.current}>

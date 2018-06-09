@@ -5,4 +5,4 @@ export const WHITE = '#FFFFFF'
 
 export const BACKGROUND_COLOR = BLUE
 export const TEXT_COLOR = WHITE
-export const LINK_COLOR = BLUE
+export const LINK_COLOR = YELLOW
