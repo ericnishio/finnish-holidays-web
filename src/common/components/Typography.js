@@ -50,3 +50,12 @@ export const Underline = styled.div`
     width: 170px;
   }
 `
+
+export const P = styled.p`
+  font-size: ${FontSize.Mobile.SMALL};
+  text-align: center;
+
+  @media (min-width: ${DESKTOP_MIN_WIDTH}) {
+    font-size: ${FontSize.Desktop.SMALL};
+  }
+`

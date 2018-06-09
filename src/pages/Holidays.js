@@ -4,12 +4,11 @@ import format from 'date-fns/format'
 import distanceInWordsStrict from 'date-fns/distance_in_words_strict'
 
 import {Heading, Subheading, Capitalize, Emphasize, Underline} from '../common/components/Typography'
+import Logo from '../common/components/Logo'
 import Button from '../common/components/Button'
 import {getNextHoliday, getHolidayAfter, getHolidayBefore, getConsecutiveHolidays} from '../common/helpers'
 import {DESKTOP_MIN_WIDTH} from '../common/styles/responsive'
 import {FontSize} from '../common/styles/fonts'
-import {LIGHT_BLUE} from '../common/styles/colors'
-import LOGO from '../assets/images/logo.png'
 
 class App extends Component {
   state = {
@@ -75,9 +74,7 @@ class App extends Component {
     return (
       <Board>
         <Center>
-          <LogoContainer>
-            <Logo src={LOGO} alt="Finnish Holidays" />
-          </LogoContainer>
+          <Logo />
           <Subheading style={{marginBottom: '10px'}}>
             {timeUntil}
           </Subheading>
@@ -122,28 +119,6 @@ const Center = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-`
-
-const LogoContainer = styled.div`
-  align-items: center; justify-content: center;
-  background-color: ${LIGHT_BLUE};
-  border-radius: 50%;
-  box-shadow: 0 0 30px 0 #374A79;
-  display: flex;
-  margin-bottom: 35px;
-  width: 70px; height: 70px;
-
-  @media (min-width: ${DESKTOP_MIN_WIDTH}) {
-    width: 90px; height: 90px;
-  }
-`
-
-const Logo = styled.img`
-  width: 60px; height: auto;
-
-  @media (min-width: ${DESKTOP_MIN_WIDTH}) {
-    width: 80px;
-  }
 `
 
 const Message = styled.div`

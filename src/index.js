@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom'
 import {injectGlobal} from 'styled-components'
 import 'core-js/fn/array/find'
 
-import App from './bootstrap/App'
+import Routes from './bootstrap/Routes'
 import registerServiceWorker from './bootstrap/registerServiceWorker'
 import {BACKGROUND_COLOR, TEXT_COLOR, LINK_COLOR} from './common/styles/colors'
 import {FontFamily, FontSize} from './common/styles/fonts'
 import {DESKTOP_MIN_WIDTH} from './common/styles/responsive'
 import './assets/fonts/futura.css'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<Routes />, document.getElementById('root'))
 
 registerServiceWorker()
 
