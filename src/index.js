@@ -43,6 +43,11 @@ injectGlobal`
     &:hover {
       color: #fffebc;
     }
+
+    &:any-link {
+      color: ${LINK_COLOR};
+      text-decoration: none;
+    }
   }
 
   p {
