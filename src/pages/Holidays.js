@@ -58,16 +58,21 @@ class App extends Component {
 
     const consecutiveHolidays = getConsecutiveHolidays(holiday)
 
+    const now = new Date()
+    const date = new Date(holiday.year, holiday.month - 1, holiday.day)
+
+    const isFuture = +date > +now
+
     const timeUntil = distanceInWordsStrict(
       new Date(),
-      new Date(holiday.year, holiday.month - 1, holiday.day),
+      date,
       {
         addSuffix: true,
-        partialMethod: 'ceil',
+        partialMethod: isFuture ? 'ceil' : 'floor',
       }
     )
 
-    const date = format(
+    const dateText = format(
       new Date(holiday.year, holiday.month - 1, holiday.day),
       'ddd, MMM D'
     ).toUpperCase()
@@ -100,7 +105,7 @@ class App extends Component {
         <Navigation>
           <Button direction="left" onClick={this.previous} />
           <DateText onClick={this.current}>
-            {date}
+            {dateText}
           </DateText>
           <Button direction="right" onClick={this.next} />
         </Navigation>
