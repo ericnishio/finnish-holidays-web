@@ -13,7 +13,7 @@ class FacebookShare extends Component {
 
   componentDidMount() {
     // eslint-disable-next-line
-    FB.XFBML.parse() // ensure Facebook buttons appear on page
+    if (FB) FB.XFBML.parse() // ensure Facebook buttons appear on page
   }
 
   render() {
