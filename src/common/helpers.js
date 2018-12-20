@@ -102,7 +102,9 @@ const findConsecutiveHolidaysSince = ({sinceDate, forward = true, weekends = tru
     }
   }
 
-  return consecutiveHolidays
+  return consecutiveHolidays.sort(
+    (a, b) => (+a.date) - (+b.date) // sort by date
+  )
 }
 
 export const createDate = (date = new Date()) =>
