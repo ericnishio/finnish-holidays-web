@@ -11,7 +11,7 @@ import FacebookShare from '../common/components/FacebookShare'
 import {DESKTOP_MIN_WIDTH} from '../common/styles/responsive'
 import {FontSize} from '../common/styles/fonts'
 
-const App = () => {
+const Holidays = () => {
   const [holiday, setHoliday] = useState(getNextHoliday())
 
   const previous = () => setHoliday(getHolidayBefore(holiday))
@@ -156,4 +156,4 @@ const DateText = styled(Capitalize)`
   }
 `
 
-export default App
+export default Holidays
