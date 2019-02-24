@@ -146,7 +146,7 @@ const Navigation = styled.div`
   height: 150px;
 `
 
-const DateText = Capitalize.extend`
+const DateText = styled(Capitalize)`
   align-items: center; justify-content: center;
   display: flex;
   height: 50px;

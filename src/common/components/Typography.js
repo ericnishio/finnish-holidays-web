@@ -25,7 +25,7 @@ export const Capitalize = styled.span`
   }
 `
 
-export const Subheading = Capitalize.extend`
+export const Subheading = styled(Capitalize)`
   color: ${YELLOW};
 `
 
