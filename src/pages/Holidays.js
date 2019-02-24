@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import format from 'date-fns/format'
 import distanceInWordsStrict from 'date-fns/distance_in_words_strict'
@@ -11,107 +11,95 @@ import FacebookShare from '../common/components/FacebookShare'
 import {DESKTOP_MIN_WIDTH} from '../common/styles/responsive'
 import {FontSize} from '../common/styles/fonts'
 
-class App extends Component {
-  state = {
-    holiday: getNextHoliday(),
-  }
+const App = () => {
+  const [holiday, setHoliday] = useState(getNextHoliday())
 
-  componentDidMount() {
-    document.addEventListener('keydown', this.onKeydown)
-  }
+  const previous = () => setHoliday(getHolidayBefore(holiday))
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.onKeydown)
-  }
+  const next = () => setHoliday(getHolidayAfter(holiday))
 
-  onKeydown = ({keyCode}) => {
+  const current = () => setHoliday(getNextHoliday())
+
+  const onKeydown = ({keyCode}) => {
     // Arrow right
     if (keyCode === 39) {
-      this.next()
+      next()
     }
 
     // Arrow left
     if (keyCode === 37) {
-      this.previous()
+      previous()
     }
 
     // Escape
     if (keyCode === 27) {
-      this.current()
+      current()
     }
   }
 
-  previous = () => this.setState(prevState => ({
-    holiday: getHolidayBefore(prevState.holiday),
-  }))
+  useEffect(() => {
+    document.addEventListener('keydown', onKeydown)
 
-  next = () => this.setState(prevState => ({
-    holiday: getHolidayAfter(prevState.holiday),
-  }))
+    return () => {
+      document.removeEventListener('keydown', onKeydown)
+    }
+  }, [])
 
-  current = () => this.setState({
-    holiday: getNextHoliday(),
-  })
+  const consecutiveHolidays = getConsecutiveHolidays(holiday)
 
-  render() {
-    const {holiday} = this.state
+  const now = new Date()
+  const date = new Date(holiday.year, holiday.month - 1, holiday.day)
 
-    const consecutiveHolidays = getConsecutiveHolidays(holiday)
+  const isFuture = +date > +now
 
-    const now = new Date()
-    const date = new Date(holiday.year, holiday.month - 1, holiday.day)
+  const timeUntil = distanceInWordsStrict(
+    new Date(),
+    date,
+    {
+      addSuffix: true,
+      partialMethod: isFuture ? 'ceil' : 'floor',
+    }
+  )
 
-    const isFuture = +date > +now
+  const dateText = format(
+    new Date(holiday.year, holiday.month - 1, holiday.day),
+    'ddd, MMM D'
+  ).toUpperCase()
 
-    const timeUntil = distanceInWordsStrict(
-      new Date(),
-      date,
-      {
-        addSuffix: true,
-        partialMethod: isFuture ? 'ceil' : 'floor',
-      }
-    )
-
-    const dateText = format(
-      new Date(holiday.year, holiday.month - 1, holiday.day),
-      'ddd, MMM D'
-    ).toUpperCase()
-
-    return (
-      <Board>
-        <Center>
-          <Logo />
-          <Subheading style={{marginBottom: '10px'}}>
-            {timeUntil}
-          </Subheading>
-          <Heading>{holiday.description.replace(`'`, '’')}</Heading>
-          <Underline style={{marginTop: '20px'}} />
-          {
-            <Message>
-              {
-                consecutiveHolidays.length > 1 &&
-                <Fragment>
-                  <Emphasize>{consecutiveHolidays.length}</Emphasize>
-                  {' '}consecutive days off:{' '}
-                  <Emphasize>
-                    {consecutiveHolidays.map(_ => format(_.date, 'ddd')).join(', ')}
-                  </Emphasize>
-                </Fragment>
-              }
-            </Message>
-          }
-        </Center>
-        <FacebookShare style={{position: 'absolute', top: '15px', right: '15px'}} />
-        <Navigation>
-          <Button direction="left" onClick={this.previous} />
-          <DateText onClick={this.current}>
-            {dateText}
-          </DateText>
-          <Button direction="right" onClick={this.next} />
-        </Navigation>
-      </Board>
-    )
-  }
+  return (
+    <Board>
+      <Center>
+        <Logo />
+        <Subheading style={{marginBottom: '10px'}}>
+          {timeUntil}
+        </Subheading>
+        <Heading>{holiday.description.replace(`'`, '’')}</Heading>
+        <Underline style={{marginTop: '20px'}} />
+        {
+          <Message>
+            {
+              consecutiveHolidays.length > 1 &&
+              <>
+                <Emphasize>{consecutiveHolidays.length}</Emphasize>
+                {' '}consecutive days off:{' '}
+                <Emphasize>
+                  {consecutiveHolidays.map(_ => format(_.date, 'ddd')).join(', ')}
+                </Emphasize>
+              </>
+            }
+          </Message>
+        }
+      </Center>
+      <FacebookShare style={{position: 'absolute', top: '15px', right: '15px'}} />
+      <Navigation>
+        <Button direction="left" onClick={previous} />
+        <DateText onClick={current}>
+          {dateText}
+        </DateText>
+        <Button direction="right" onClick={next} />
+      </Navigation>
+    </Board>
+  )
 }
 
 const Board = styled.div`
