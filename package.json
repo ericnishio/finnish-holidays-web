@@ -6,6 +6,7 @@
   "dependencies": {
     "date-fns": "^1.29.0",
     "finnish-holidays-js": "^1.1.2",
+    "gh-pages": "^2.0.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-router-dom": "^4.3.1",
